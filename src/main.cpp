@@ -13,8 +13,8 @@ void setup() {
 }
 
 void loop() {
-  LSM6DS3.readGyroData(x, y, z);
-  Serial.println();
+  // LSM6DS3.readGyroData(x, y, z);
+  // Serial.println();
 
 }
 
