@@ -11,6 +11,11 @@
 #define LSM6DS3_OUTX_L_XL 0x28 //Linear acceleration sensor X-axis output register (r). The value is expressed as a 16-bit word in two’s complement
 #define LSM6DS3_OUT_TEMP_L 0x20 //Temperature data output register (r). L and H registers together express a 16-bit word in two’s complement.
 
+#define SPI_CS PB_0  //Need to use this instead of A3 because A3 is mapped to something else
+#define SPI_SCLK PA_5  // OR D13
+#define SPI_MOSI PA_7 //OR D11
+#define SPI_MISO PA_6  //OR D12
+
 
 class LSM6DS3 {
     public:   

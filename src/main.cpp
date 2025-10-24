@@ -1,26 +1,15 @@
 #include "gyro.h"
-#include <LSM6DS3.h>
 
 
-  float* x;
-  float* y;
-  float* z;
+float* x;
+float* y;
+float* z;
 
-  float* f;
-  float* g;
-  float* h;
-  
-  float* t;
+float* f;
+float* g;
+float* h;
 
-  #define SPI_CS D3
-  #define SPI_SCLK A4
-  #define SPI_MOSI D2
-  #define SPI_MISO A5
-
-SPIClass spi1(SPI_CS,SPI_SCLK,SPI_MOSI,SPI_MISO);
-  
-LSM6DS3Class board(spi1, SPI_CS, D6 );
-
+float* t;
 LSM6DS3 board2;
 
 void setup() {
@@ -39,6 +28,18 @@ void setup() {
     while(true);
   }
    Serial.printf("Not Failed\n");
+
+
+   //pointers need memory allocation
+   x = (float*)malloc(sizeof(float));
+   y = (float*)malloc(sizeof(float));
+   z = (float*)malloc(sizeof(float));
+
+   f = (float*)malloc(sizeof(float));
+   g = (float*)malloc(sizeof(float));
+   h = (float*)malloc(sizeof(float));
+
+   t = (float*)malloc(sizeof(float));
 
 }
 

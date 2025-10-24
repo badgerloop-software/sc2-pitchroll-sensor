@@ -2,19 +2,22 @@
 
 void LSM6DS3::readRegisters(uint8_t address, uint8_t * data, size_t length){
 
-  SPI.beginTransaction(SPISettings(14000000, MSBFIRST, SPI_MODE3));
-  digitalWrite(D3, LOW);
+  SPI.beginTransaction(SPISettings(8000000, MSBFIRST, SPI_MODE3));
+  digitalWrite(SPI_CS, LOW);
   SPI.transfer(address | 0x80);
-  SPI.transfer(data,length);
-  digitalWrite(D3, HIGH);
-  SPI.endTransaction();
 
+  for (size_t i = 0; i < length; i++){
+    data[i] = SPI.transfer(0x00); // Send dummy bytes to keep SPI happy
+  }
+
+  digitalWrite(SPI_CS, HIGH);
+  SPI.endTransaction();
 }
 
 boolean LSM6DS3::whoAmICheck(){
-  int16_t data[1] = {0};
+  uint8_t data[1] = {0};
   Serial.printf("verified: %x \n", data[0]);
-  readRegisters(LSM6S3_WHO_AM_I, (uint8_t*)data, sizeof(data));
+  readRegisters(LSM6S3_WHO_AM_I, data, sizeof(data));
 
   int verified = data[0];
   Serial.printf("verified: %x \n", verified);
