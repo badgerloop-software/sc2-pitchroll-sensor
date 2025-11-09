@@ -12,8 +12,9 @@ float* h;
 float* t;
 LSM6DS3 board2;
 
+
 void setup() {
-  SPI.begin();
+  SPI_gyro.begin();
   Serial.begin(115200);
   pinMode(D3, OUTPUT);
   digitalWrite(D3, HIGH);
@@ -22,13 +23,13 @@ void setup() {
   //   Serial.printf("Failed\n");
   //   while(true);
   // }
-
-  if (board2.whoAmICheck() != true) {
-    Serial.printf("Failed\n");
-    while(true);
+  while(1==1){
+    board2.whoAmICheck();
+    delay(1000);
+      
+    
+   
   }
-   Serial.printf("Not Failed\n");
-
 
    //pointers need memory allocation
    x = (float*)malloc(sizeof(float));

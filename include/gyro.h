@@ -11,17 +11,18 @@
 #define LSM6DS3_OUTX_L_XL 0x28 //Linear acceleration sensor X-axis output register (r). The value is expressed as a 16-bit word in two’s complement
 #define LSM6DS3_OUT_TEMP_L 0x20 //Temperature data output register (r). L and H registers together express a 16-bit word in two’s complement.
 
-#define SPI_CS PB_0  //Need to use this instead of A3 because A3 is mapped to something else
-#define SPI_SCLK PA_5  // OR D13
-#define SPI_MOSI PA_7 //OR D11
-#define SPI_MISO PA_6  //OR D12
+#define SPI_CS PA4  //Need to use this instead of A3 because A3 is mapped to something else
+#define SPI_SCLK D13  // OR D13
+#define SPI_MOSI D11 //OR D11
+#define SPI_MISO D12  //OR D12
 
+extern SPIClass SPI_gyro;
 
 class LSM6DS3 {
     public:   
         void readRegisters(uint8_t address, uint8_t* data, size_t length);
 
-        boolean whoAmICheck();
+        bool whoAmICheck();
         
         void readGyroData(float* x, float* y, float* z);
         //void readRollData(float* x, float* y, float* z);

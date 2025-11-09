@@ -1,20 +1,23 @@
 #include "gyro.h"
 
+SPIClass SPI_gyro(SPI_MOSI, SPI_MISO, SPI_SCLK, SPI_CS);
+
+
 void LSM6DS3::readRegisters(uint8_t address, uint8_t * data, size_t length){
 
-  SPI.beginTransaction(SPISettings(8000000, MSBFIRST, SPI_MODE3));
+  SPI_gyro.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE3));
   digitalWrite(SPI_CS, LOW);
-  SPI.transfer(address | 0x80);
+  SPI_gyro.transfer(address | 0x80);
 
   for (size_t i = 0; i < length; i++){
-    data[i] = SPI.transfer(0x00); // Send dummy bytes to keep SPI happy
+    data[i] = SPI_gyro.transfer(0x00); // Send dummy bytes to keep SPI happy
   }
 
   digitalWrite(SPI_CS, HIGH);
-  SPI.endTransaction();
+  SPI_gyro.endTransaction();
 }
 
-boolean LSM6DS3::whoAmICheck(){
+bool LSM6DS3::whoAmICheck(){
   uint8_t data[1] = {0};
   Serial.printf("verified: %x \n", data[0]);
   readRegisters(LSM6S3_WHO_AM_I, data, sizeof(data));
