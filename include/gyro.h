@@ -17,6 +17,4 @@ class LSM6DS3 {
         void readTempData(float* t);
 };
 
-
-
 #endif
