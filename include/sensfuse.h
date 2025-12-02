@@ -14,38 +14,29 @@
 
 #define FUSION_STEP 0.05f // Fusion correct constant
 
-// begin() function declaration
 class SensorFusion {
-    public: 
+public: 
+    SensorFusion();
 
-        SensorFusion();
+    bool begin();
+    void update();
 
-        bool begin();
-        void update();
+    float getPitch();   
+    float getRoll();    
 
-        float getPitch() {
-            return ptch_accum;
-        }
+private:
+    Adafruit_ISM330DHCX ism330dhcx;
 
-        float getRoll() {
-            return roll_accum;
-        }
+    unsigned long last_micros;
 
-    private:
+    float ptch_accum;
+    float roll_accum; 
 
-        Adafruit_ISM330DHCX ism330dhcx;  // Create an instance of the gyro/accelerometer class
+    float fusion_correct_pitch;
+    float fusion_correct_roll;
 
-        unsigned long last_micros;
-
-        float ptch_accum;
-        float roll_accum; 
-
-        float fusion_correct_pitch;
-        float fusion_correct_roll;
-
-        float gyro_bias_x;
-        float gyro_bias_y;
-
+    float gyro_bias_x;
+    float gyro_bias_y;
 };
 
-#endif 
+#endif
