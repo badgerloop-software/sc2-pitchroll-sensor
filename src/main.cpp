@@ -1,18 +1,30 @@
-#include <Arduino.h>
+#include "sensfuse.h"
+#include <Adafruit_ISM330DHCX.h>
 
-// put function declarations here:
-int myFunction(int, int);
+SensorFusion fusion; // Create sensor fusion object
 
 void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+    Serial.begin(115200);
+    while (!Serial)
+        delay(10); 
+
+    Serial.println("Adafruit ISM330DHCX test!");
+    if (!fusion.begin()) {
+        Serial.println("IMU initialization failed");
+        while (1) {
+            delay(10);
+        }
+    }
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+    fusion.update();
+
+    Serial.print("Pitch: ");
+    Serial.print(fusion.getPitch());
+    Serial.print("Roll: ");
+    Serial.println(fusion.getRoll());
+
+    delay(100);
 }
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
-}
